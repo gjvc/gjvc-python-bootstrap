@@ -1,0 +1,62 @@
+#! /bin/bash
+
+# bash ----------------------------------------------------------------------------------------------
+
+set -o errexit -o nounset -o pipefail
+stty sane
+
+
+# location ------------------------------------------------------------------------------------------
+
+readonly _this=$( realpath "${BASH_SOURCE[0]}" )
+readonly _basename=$( basename "${_this}" )
+readonly _dirname=$( dirname "${_this}" )
+readonly _root=$( dirname "${_dirname}" )
+
+
+# functions -----------------------------------------------------------------------------------------
+
+banner() {
+    printf -v line -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 2 )) )
+    printf -- "\n\n%s\n" "${line}"
+    printf ">>> %s\n" "${@}"
+    printf -- "%s\n\n" "${line}"
+}
+
+heading() {
+    title=$1
+    printf -v padding -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 3 - ${#title} )) )
+    printf -- "\n%s %s\n\n" "${title}" "${padding}"
+}
+
+
+# settings ------------------------------------------------------------------------------------------
+
+version="3.13"
+
+pip_requirement_d="${_root}/etc/pip/requirement/${version}"
+versions="${pip_requirement_d}/versions"
+root="${pip_requirement_d}/root"
+
+
+# execute -------------------------------------------------------------------------------------------
+
+banner "install"
+"${_root}/bin/venv-python3" -m pipdeptree --freeze |
+    awk -F== '/^[^ ]/ { gsub(/ /, "", $1); print $1 }' |
+    sort |
+    tee "${root}" 1>/dev/null |
+    xargs --no-run-if-empty "${_root}/bin/venv-pip3" install
+
+banner "freeze"
+"${_root}/bin/venv-python3" -m pipdeptree --freeze |
+    tee "${versions}" 1>/dev/null
+
+banner "diff"
+git --no-pager diff "${versions}"
+git --no-pager diff "${root}"
+
+banner "size"
+du -sh "${_root}/.venv"
+du -sh "${_root}/var/pip/cache"
+

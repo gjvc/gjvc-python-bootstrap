@@ -1,0 +1,30 @@
+#! /bin/bash
+
+# bash ----------------------------------------------------------------------------------------------
+
+set -o errexit -o nounset -o pipefail
+stty sane
+
+
+# location ------------------------------------------------------------------------------------------
+
+readonly _this=$( realpath "${BASH_SOURCE[0]}" )
+readonly _basename=$( basename "${_this}" )
+readonly _dirname=$( dirname "${_this}" )
+readonly _root=$( dirname "${_dirname}" )
+
+
+# settings ------------------------------------------------------------------------------------------
+
+readonly python3="${_root}/.venv/bin/python3"
+readonly src_python="${_root}/src/python"
+
+
+# execute -------------------------------------------------------------------------------------------
+
+argv=( "${_root}/bin/venv-bin" python3 )
+[[ "${JURIGGED:-1}" == "1" ]] && argv+=( -m jurigged )
+argv+=( "${@}" )
+
+"${argv[@]}"
+

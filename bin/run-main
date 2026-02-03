@@ -1,0 +1,35 @@
+#! /bin/bash
+
+# bash ----------------------------------------------------------------------------------------------
+
+set -o errexit -o nounset -o pipefail
+stty sane
+
+
+# location ------------------------------------------------------------------------------------------
+
+readonly _this=$( realpath "${BASH_SOURCE[0]}" )
+readonly _basename=$( basename "${_this}" )
+readonly _dirname=$( dirname "${_this}" )
+readonly _root=$( dirname "${_dirname}" )
+
+
+# settings ------------------------------------------------------------------------------------------
+
+readonly venv_run="${_root}/bin/venv-run"
+readonly venv_python3="${_root}/bin/venv-python3"
+readonly src_python="${_root}/src/python"
+
+
+# execute -------------------------------------------------------------------------------------------
+
+argv=(
+    env --ignore-environment
+        HOME=~
+    "${venv_python3}"
+        "${src_python}/app/main/main.py"
+        "${@}"
+)
+
+"${argv[@]}"
+

@@ -1,0 +1,75 @@
+#! /bin/bash
+
+# bash ----------------------------------------------------------------------------------------------
+
+set -o errexit -o nounset -o pipefail
+stty sane
+
+
+# location ------------------------------------------------------------------------------------------
+
+readonly _this=$( realpath "${BASH_SOURCE[0]}" )
+readonly _basename=$( basename "${_this}" )
+readonly _dirname=$( dirname "${_this}" )
+readonly _root=$( dirname "${_dirname}" )
+
+
+# functions -----------------------------------------------------------------------------------------
+
+banner() {
+    printf -v line -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 2 )) )
+    printf -- "\n\n%s\n" "${line}"
+    printf ">>> %s\n" "${@}"
+    printf -- "%s\n\n" "${line}"
+}
+
+heading() {
+    title=$1
+    printf -v padding -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 3 - ${#title} )) )
+    printf -- "\n%s %s\n\n" "${title}" "${padding}"
+}
+
+
+# settings ------------------------------------------------------------------------------------------
+
+rm -fr "${_root}/.venv"
+
+version="3.13"
+python3=$( command -v "python${version}" )
+
+if [[ -z "${python3}" ]]; then
+    echo "error: python${version} not found" >&2
+    exit 1
+fi
+
+
+pip_requirement_d="${_root}/etc/pip/requirement/${version}"
+
+bootstrap="${_root}/etc/pip/requirement/bootstrap"
+root="${pip_requirement_d}/root"
+versions="${pip_requirement_d}/versions"
+
+
+# execute -------------------------------------------------------------------------------------------
+
+banner "venv"
+"${python3}" -m venv "${_root}/.venv"
+
+banner "requirement"
+if [[ -f "${root}" ]] && [[ "${root}" -nt "${versions}" ]]; then
+    "${_root}/bin/venv-pip3" install --requirement "${root}"
+elif [[ -s "${versions}" ]]; then
+    "${_root}/bin/venv-pip3" install --requirement "${versions}"
+elif [[ -s "${root}" ]]; then
+    "${_root}/bin/venv-pip3" install --requirement "${root}"
+else
+    "${_root}/bin/venv-pip3" install --requirement "${bootstrap}"
+fi
+
+banner "freeze"
+"${_root}/bin/venv-python3" -m pipdeptree --freeze | tee "${versions}"
+git --no-pager diff "${versions}"
+
+banner "versions"
+"${_root}/bin/venv-pip3" --version
+"${_root}/bin/venv-python3" --version
