@@ -1,5 +1,5 @@
 """
-src/python/main/main.py
+src/python/app/main/main.py
 """
 
 import argparse

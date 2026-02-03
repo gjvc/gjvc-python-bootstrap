@@ -11,12 +11,17 @@ This is a template Python 3.x project, to be used for starting a new project fro
 
 ## examples
 
+### assumptions
+
+* You are using Python 3.13 (change it 
+
+
 ### cold start
 
-bootstrap the .venv/ directory use the contents of etc/pip/requirement/bootstrap
+bootstrap the .venv/ directory uting the contents of etc/pip-requirement.d/3.13-bootstrap
 
 ```bash
-bin/dev-bootstrap
+bin/dev-setup
 ```
 
 ### install python package
@@ -39,14 +44,17 @@ bin/dev-update
 
 ### development convenience scripts
 
-* bin/dev-bootstrap -- create .venv/ and install packages
-* bin/dev-update -- run bin/dev-bootstrap and install latest versions of all packages
-* bin/venv-pip3 -- run pip
+* bin/dev-setup -- create .venv/ and install packages from etc/pip-requirement.d/3.13-*
+* bin/dev-update -- run bin/dev-setup and install latest versions of all packages
+* bin/venv-pip3 -- run pip3 from .venv/bin/
+* bin/venv-run -- run files from .venv/bin/ 
+
 
 ### venv wrapper scripts
 
-* bin/venv-bin ${1} -- run .venv/bin/${1} with environment
 * bin/venv-python3 -- run .venv/bin/python3 with environment
+* bin/venv-run ${1} -- run .venv/bin/${1} with environment
+
 
 ### application entry points
 

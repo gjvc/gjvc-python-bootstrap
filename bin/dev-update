@@ -34,9 +34,9 @@ heading() {
 
 version="3.13"
 
-pip_requirement_d="${_root}/etc/pip/requirement/${version}"
-versions="${pip_requirement_d}/versions"
-root="${pip_requirement_d}/root"
+pip_requirement_d="${_root}/etc/pip-requirement.d"
+versions="${pip_requirement_d}/${version}-versions"
+roots="${pip_requirement_d}/${version}-roots"
 
 
 # execute -------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ banner "install"
 "${_root}/bin/venv-python3" -m pipdeptree --freeze |
     awk -F== '/^[^ ]/ { gsub(/ /, "", $1); print $1 }' |
     sort |
-    tee "${root}" 1>/dev/null |
+    tee "${roots}" 1>/dev/null |
     xargs --no-run-if-empty "${_root}/bin/venv-pip3" install
 
 banner "freeze"
@@ -54,9 +54,9 @@ banner "freeze"
 
 banner "diff"
 git --no-pager diff "${versions}"
-git --no-pager diff "${root}"
+git --no-pager diff "${roots}"
 
 banner "size"
 du -sh "${_root}/.venv"
-du -sh "${_root}/var/pip/cache"
+du -sh "${_root}/.cache/pip"
 

@@ -16,7 +16,6 @@ readonly _root=$( dirname "${_dirname}" )
 
 # settings ------------------------------------------------------------------------------------------
 
-readonly venv_run="${_root}/bin/venv-run"
 readonly venv_python3="${_root}/bin/venv-python3"
 readonly src_python="${_root}/src/python"
 
@@ -25,7 +24,7 @@ readonly src_python="${_root}/src/python"
 
 argv=(
     env --ignore-environment
-        HOME=~
+        HOME=${HOME:-~}
     "${venv_python3}"
         "${src_python}/app/main/main.py"
         "${@}"

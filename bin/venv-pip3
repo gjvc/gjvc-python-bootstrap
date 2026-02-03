@@ -16,7 +16,7 @@ readonly _root=$( dirname "${_dirname}" )
 
 # execute -------------------------------------------------------------------------------------------
 
-argv=( "${_root}/bin/venv-bin" pip3 --cache-dir "${_root}/var/pip/cache" )
+argv=( "${_root}/bin/venv-bin" pip3 --cache-dir "${_root}/.cache/pip" )
 argv+=( "${@}" )
 
 mkdir -p "${_root}/var/pip/cache" && "${argv[@]}"

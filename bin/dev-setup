@@ -42,34 +42,33 @@ if [[ -z "${python3}" ]]; then
     exit 1
 fi
 
-
-pip_requirement_d="${_root}/etc/pip/requirement/${version}"
-
-bootstrap="${_root}/etc/pip/requirement/bootstrap"
-root="${pip_requirement_d}/root"
-versions="${pip_requirement_d}/versions"
+pip_requirement_d="${_root}/etc/pip-requirement.d"
+bootstrap="${pip_requirement_d}/${version}-bootstrap"
+roots="${pip_requirement_d}/${version}-roots"
+versions="${pip_requirement_d}/${version}-versions"
 
 
 # execute -------------------------------------------------------------------------------------------
 
-banner "venv"
+banner "creating venv ${_root}/.venv"
 "${python3}" -m venv "${_root}/.venv"
+JURIGGED=0 "${_root}/bin/venv-python3" --version
 
-banner "requirement"
-if [[ -f "${root}" ]] && [[ "${root}" -nt "${versions}" ]]; then
-    "${_root}/bin/venv-pip3" install --requirement "${root}"
+if [[ -s "${roots}" ]] && [[ "${roots}" -nt "${versions}" ]]; then
+    requirement="${roots}"
 elif [[ -s "${versions}" ]]; then
-    "${_root}/bin/venv-pip3" install --requirement "${versions}"
-elif [[ -s "${root}" ]]; then
-    "${_root}/bin/venv-pip3" install --requirement "${root}"
+    requirement="${versions}"
+elif [[ -s "${roots}" ]]; then
+    requirement="${roots}"
 else
-    "${_root}/bin/venv-pip3" install --requirement "${bootstrap}"
+    requirement="${bootstrap}"
 fi
+banner "installing from ${requirement}"
+"${_root}/bin/venv-pip3" install --requirement "${requirement}"
 
-banner "freeze"
+banner "freezing to ${versions}"
 "${_root}/bin/venv-python3" -m pipdeptree --freeze | tee "${versions}"
 git --no-pager diff "${versions}"
 
-banner "versions"
-"${_root}/bin/venv-pip3" --version
-"${_root}/bin/venv-python3" --version
+banner "complete"
+
