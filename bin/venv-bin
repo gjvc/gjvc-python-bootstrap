@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-stty sane
+[[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -12,11 +12,6 @@ readonly _this=$( realpath "${BASH_SOURCE[0]}" )
 readonly _basename=$( basename "${_this}" )
 readonly _dirname=$( dirname "${_this}" )
 readonly _root=$( dirname "${_dirname}" )
-
-
-# settings ------------------------------------------------------------------------------------------
-
-readonly src_python="${_root}/src/python"
 
 
 # execute -------------------------------------------------------------------------------------------
@@ -28,9 +23,8 @@ argv=(
         PYTHONDONTWRITEBYTECODE="1"
         PYTHONHASHSEED="0"
         PYTHONNOUSERSITE="1"
-        PYTHONPATH="${src_python}"
+        PYTHONPATH="${_root}/src/python"
     "${_root}/.venv/bin/${1}"
 )
 argv+=( "${@:2}" )
-
 "${argv[@]}"

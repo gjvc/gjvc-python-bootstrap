@@ -1,0 +1,145 @@
+lock-version = "1.0"
+created-by = "pip"
+
+[[packages]]
+name = "blessed"
+version = "1.29.0"
+
+[[packages.wheels]]
+name = "blessed-1.29.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/ff/47/566dcc08f8037511355a49220a3eecb795f955bb6145f419d5e60dbeaa00/blessed-1.29.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "cd5f339a308ac5e97d814c4bcbf7ce9723c465ca73c42744ea72646a0c653f6e"
+
+[[packages]]
+name = "codefind"
+version = "0.1.7"
+
+[[packages.wheels]]
+name = "codefind-0.1.7-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/1d/2e/f6403d675c1a99a40d076d62ed9759b8863d1ac8119508e902cb0a33691d/codefind-0.1.7-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "5f1305b0992185cc87f28925c4449d04a256389099d46a489e619a296a802a29"
+
+[[packages]]
+name = "jurigged"
+version = "0.6.1"
+
+[[packages.wheels]]
+name = "jurigged-0.6.1-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/3c/9c/e284364201260efb4a6a2f9ac57e8faba2e9046ea3a4c7e62b0c84775095/jurigged-0.6.1-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "2479f1e7463c29639ac7764672e2709391ff0910b3cf27125a7985f2a7b04355"
+
+[[packages]]
+name = "nodeenv"
+version = "1.10.0"
+
+[[packages.wheels]]
+name = "nodeenv-1.10.0-py2.py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/88/b2/d0896bdcdc8d28a7fc5717c305f1a861c26e18c05047949fb371034d98bd/nodeenv-1.10.0-py2.py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "5bb13e3eed2923615535339b3c620e76779af4cb4c6a90deccc9e36b274d3827"
+
+[[packages]]
+name = "ovld"
+version = "0.5.14"
+
+[[packages.wheels]]
+name = "ovld-0.5.14-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/17/45/032d3c8008080861085e5bea4d0635fcaf75a362dcf2668780c1bd610f82/ovld-0.5.14-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "964474b85a1ecd8d1a163db4d02c1be67ddd87c3e64ee115a46cf7c666828152"
+
+[[packages]]
+name = "packaging"
+version = "26.0"
+
+[[packages.wheels]]
+name = "packaging-26.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/b7/b9/c538f279a4e237a006a2c98387d081e9eb060d203d8ed34467cc0f0b9b53/packaging-26.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "b36f1fef9334a5588b4166f8bcd26a14e521f2b55e6b9de3aaa80d3ff7a37529"
+
+[[packages]]
+name = "pip"
+version = "26.0"
+
+[[packages.wheels]]
+name = "pip-26.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/69/00/5ac7aa77688ec4d34148b423d34dc0c9bc4febe0d872a9a1ad9860b2f6f1/pip-26.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "98436feffb9e31bc9339cf369fd55d3331b1580b6a6f1173bacacddcf9c34754"
+
+[[packages]]
+name = "pipdeptree"
+version = "2.30.0"
+
+[[packages.wheels]]
+name = "pipdeptree-2.30.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/90/3d/21d6b9a0d04c6aa48621d500af4648435e4b0906437c8474ddb188249436/pipdeptree-2.30.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "e08ee7eb8152c0d67aee308c8477a489ab0af1a4aafe988d9d2d9998f78a24a6"
+
+[[packages]]
+name = "pyright"
+version = "1.1.408"
+
+[[packages.wheels]]
+name = "pyright-1.1.408-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/0c/82/a2c93e32800940d9573fb28c346772a14778b84ba7524e691b324620ab89/pyright-1.1.408-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "090b32865f4fdb1e0e6cd82bf5618480d48eecd2eb2e70f960982a3d9a4c17c1"
+
+[[packages]]
+name = "pyyaml"
+version = "6.0.3"
+
+[[packages.wheels]]
+name = "pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/74/27/e5b8f34d02d9995b80abcef563ea1f8b56d20134d8f4e5e81733b1feceb2/pyyaml-6.0.3-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl"
+
+[packages.wheels.hashes]
+sha256 = "0f29edc409a6392443abf94b9cf89ce99889a1dd5376d94316ae5145dfedd5d6"
+
+[[packages]]
+name = "typing-extensions"
+version = "4.15.0"
+
+[[packages.wheels]]
+name = "typing_extensions-4.15.0-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/18/67/36e9267722cc04a6b9f15c7f3441c2363321a3ea07da7ae0c0707beb2a9c/typing_extensions-4.15.0-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548"
+
+[[packages]]
+name = "watchdog"
+version = "6.0.0"
+
+[[packages.wheels]]
+name = "watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl"
+url = "https://files.pythonhosted.org/packages/b5/e8/dbf020b4d98251a9860752a094d09a65e1b436ad181faf929983f697048f/watchdog-6.0.0-py3-none-manylinux2014_x86_64.whl"
+
+[packages.wheels.hashes]
+sha256 = "20ffe5b202af80ab4266dcd3e91aae72bf2da48c0d33bdb15c66658e685e94e2"
+
+[[packages]]
+name = "wcwidth"
+version = "0.5.3"
+
+[[packages.wheels]]
+name = "wcwidth-0.5.3-py3-none-any.whl"
+url = "https://files.pythonhosted.org/packages/3c/c1/d73f12f8cdb1891334a2ccf7389eed244d3941e74d80dd220badb937f3fb/wcwidth-0.5.3-py3-none-any.whl"
+
+[packages.wheels.hashes]
+sha256 = "d584eff31cd4753e1e5ff6c12e1edfdb324c995713f75d26c29807bb84bf649e"

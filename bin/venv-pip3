@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-stty sane
+[[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -16,7 +16,6 @@ readonly _root=$( dirname "${_dirname}" )
 
 # execute -------------------------------------------------------------------------------------------
 
-argv=( "${_root}/bin/venv-bin" pip3 --cache-dir "${_root}/.cache/pip" )
-argv+=( "${@}" )
+argv=( "${_root}/bin/venv-bin" pip3 --cache-dir "${_root}/.pip/cache" "${@}" )
+mkdir -p "${_root}/.pip/cache" && "${argv[@]}"
 
-mkdir -p "${_root}/var/pip/cache" && "${argv[@]}"

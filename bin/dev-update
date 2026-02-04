@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-stty sane
+[[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ banner() {
 }
 
 heading() {
-    title=$1
+    title="${1}"
     printf -v padding -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 3 - ${#title} )) )
     printf -- "\n%s %s\n\n" "${title}" "${padding}"
 }
@@ -34,29 +34,35 @@ heading() {
 
 version="3.13"
 
-pip_requirement_d="${_root}/etc/pip-requirement.d"
-versions="${pip_requirement_d}/${version}-versions"
-roots="${pip_requirement_d}/${version}-roots"
 
+# install -------------------------------------------------------------------------------------------
 
-# execute -------------------------------------------------------------------------------------------
+pip_requirement_d="${_root}/etc/pip-requirement.d/${version}"
+roots="${pip_requirement_d}/roots"
+versions="${pip_requirement_d}/versions"
+pylock_toml="${pip_requirement_d}/pylock.toml"
 
 banner "install"
-"${_root}/bin/venv-python3" -m pipdeptree --freeze |
-    awk -F== '/^[^ ]/ { gsub(/ /, "", $1); print $1 }' |
+"${_root}/bin/venv-bin" pipdeptree --freeze |
+    awk '/^[^ ]/ { print $1 }' |
     sort |
     tee "${roots}" 1>/dev/null |
     xargs --no-run-if-empty "${_root}/bin/venv-pip3" install
 
-banner "freeze"
-"${_root}/bin/venv-python3" -m pipdeptree --freeze |
-    tee "${versions}" 1>/dev/null
 
-banner "diff"
+# freeze --------------------------------------------------------------------------------------------
+
+banner "freezing to ${versions}"
+"${_root}/bin/venv-bin" pipdeptree --freeze | tee "${versions}" 1>/dev/null
+
+banner "freezing to ${pylock_toml}"
+"${_root}/bin/venv-bin" pip3 lock --requirement "${versions}" --output "${pylock_toml}"
+
+heading "diff"
 git --no-pager diff "${versions}"
 git --no-pager diff "${roots}"
 
-banner "size"
+heading "size"
 du -sh "${_root}/.venv"
-du -sh "${_root}/.cache/pip"
+du -sh "${_root}/.pip"
 

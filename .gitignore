@@ -2,9 +2,8 @@
 .cache/
 .idea/
 .ipynb_checkpoints/
+.pip/
 .venv/
-
-var/
 
 *.pyc
 

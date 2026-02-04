@@ -2,13 +2,30 @@
 src/python/main/main.py
 """
 
+import importlib.metadata
 import logging
 import resource
 import sysconfig
 
 from app.util.logging_util import log_heading
 
+
 log = logging.getLogger( __name__ )
+
+
+def dump_packages():
+    installed_packages = [ d.metadata['Name'] for d in importlib.metadata.distributions() ]
+
+    def get_package_version( name: str ):
+        try:
+            return importlib.metadata.version( name )
+        except importlib.metadata.PackageNotFoundError:
+            return None
+
+    version_by_name = { name: get_package_version( name ) for name in installed_packages }
+    width = max( [ len( name ) for name in version_by_name.keys() ] ) + 2
+    for name, version in version_by_name.items():
+        log.info( f'{name:{width}}{version}' )
 
 
 def dump_sysconfig():

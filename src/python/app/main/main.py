@@ -6,7 +6,7 @@ import argparse
 import logging
 import os
 
-from app.main.dump import dump_rlimits, dump_sysconfig
+from app.main.dump import dump_rlimits, dump_sysconfig, dump_packages
 from app.util.logging_util import logging_init, log_banner, log_heading
 from app.util.dict_util import dump_dict
 
@@ -26,7 +26,8 @@ def dispatch( args: argparse.Namespace ):
         dump_rlimits()
     if args.sysconfig:
         dump_sysconfig()
-
+    if args.packages:
+        dump_packages()
 
 def parse_args() -> argparse.Namespace:
     logging_level_choices = { 'INFO', 'DEBUG', 'ERROR', 'TRACE', 'FATAL', 'WARNING' }
@@ -34,6 +35,7 @@ def parse_args() -> argparse.Namespace:
 
     _ = argparse.ArgumentParser()
     _.add_argument( '--args', action='store_true' )
+    _.add_argument( '--packages', action='store_true' )
     _.add_argument( '--environment', action='store_true' )
     _.add_argument( '--resource', action='store_true' )
     _.add_argument( '--sysconfig', action='store_true' )

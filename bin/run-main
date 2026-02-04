@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-stty sane
+[[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -14,21 +14,13 @@ readonly _dirname=$( dirname "${_this}" )
 readonly _root=$( dirname "${_dirname}" )
 
 
-# settings ------------------------------------------------------------------------------------------
-
-readonly venv_python3="${_root}/bin/venv-python3"
-readonly src_python="${_root}/src/python"
-
-
 # execute -------------------------------------------------------------------------------------------
 
 argv=(
     env --ignore-environment
         HOME=${HOME:-~}
-    "${venv_python3}"
-        "${src_python}/app/main/main.py"
+    "${_root}/bin/venv-python3"
+        "${_root}/src/python/app/main/main.py"
         "${@}"
 )
-
 "${argv[@]}"
-

@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-stty sane
+[[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ banner() {
 }
 
 heading() {
-    title=$1
+    title="${1}"
     printf -v padding -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 3 - ${#title} )) )
     printf -- "\n%s %s\n\n" "${title}" "${padding}"
 }
@@ -42,17 +42,21 @@ if [[ -z "${python3}" ]]; then
     exit 1
 fi
 
-pip_requirement_d="${_root}/etc/pip-requirement.d"
-bootstrap="${pip_requirement_d}/${version}-bootstrap"
-roots="${pip_requirement_d}/${version}-roots"
-versions="${pip_requirement_d}/${version}-versions"
 
-
-# execute -------------------------------------------------------------------------------------------
+# venv ----------------------------------------------------------------------------------------------
 
 banner "creating venv ${_root}/.venv"
 "${python3}" -m venv "${_root}/.venv"
 JURIGGED=0 "${_root}/bin/venv-python3" --version
+
+
+# pip -----------------------------------------------------------------------------------------------
+
+pip_requirement_d="${_root}/etc/pip-requirement.d/${version}"
+bootstrap="${pip_requirement_d}/bootstrap"
+roots="${pip_requirement_d}/roots"
+versions="${pip_requirement_d}/versions"
+pylock_toml="${pip_requirement_d}/pylock.toml"
 
 if [[ -s "${roots}" ]] && [[ "${roots}" -nt "${versions}" ]]; then
     requirement="${roots}"
@@ -66,9 +70,15 @@ fi
 banner "installing from ${requirement}"
 "${_root}/bin/venv-pip3" install --requirement "${requirement}"
 
+
+# freeze --------------------------------------------------------------------------------------------
+
 banner "freezing to ${versions}"
-"${_root}/bin/venv-python3" -m pipdeptree --freeze | tee "${versions}"
+"${_root}/bin/venv-bin" pipdeptree --freeze | tee "${versions}"
 git --no-pager diff "${versions}"
+
+banner "freezing to ${pylock_toml}"
+"${_root}/bin/venv-bin" pip3 lock --requirement "${versions}" --output "${pylock_toml}"
 
 banner "complete"
 
