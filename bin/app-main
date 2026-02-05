@@ -16,7 +16,11 @@ readonly _root=$( dirname "${_dirname}" )
 
 # execute -------------------------------------------------------------------------------------------
 
-argv=( "${_root}/bin/venv-bin" "python3" )
-[[ "${JURIGGED:-1}" == "1" ]] && argv+=( -m jurigged )
-argv+=( "${@}" )
+argv=(
+    env --ignore-environment
+        HOME=${HOME:-~}
+    "${_root}/bin/venv-python3"
+        "${_root}/src/python/main/app/main/main.py"
+        "${@}"
+)
 "${argv[@]}"

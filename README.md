@@ -4,7 +4,30 @@
 
 ## synopsis
 
-This is a template Python 3.x project, to be used for starting a new project from scratch.
+This is a template Python 3.x project, to be used for starting a new project
+from scratch.  This is not intended to be a project framework on which to build
+and run the next twitter, but it is intended to be a project framework with
+which you can get a project going quickly.
+
+
+## purpose / audience
+
+It's intended to benefit the first 10 hours and days, not the first 10 months
+or years.  If you find yourself in that position and needing help, please get
+in touch. :-)
+
+
+## tool configuration
+
+Where possible, use `pyproject.toml` -- doing so keeps all configuration in one
+place, and does not litter the root directory of the project with configuration
+files.  It would be good if we could keep the project root directory pristine
+clean, and refer to the location of `pyproject.toml` by environment variable,
+but until that time, we will have to make do with this approach.
+
+
+## structure
+
 
 ## files
 
@@ -26,14 +49,15 @@ files in `etc/pip-requirement.d/`
 | `etc/pip-requirement.d/3.13-roots`     |          |         |
 | `etc/pip-requirement.d/3.13-version`   |          |         |
 
+
 ### venv wrapper scripts
 
-* bin/venv-python3 -- run `.venv/bin/python3` with environment
-* bin/venv-run `{basename}` -- run `.venv/bin/{basename}` with environment
+* `bin/venv-python3` -- run `.venv/bin/python3` with environment
+* `bin/venv-run` `{basename}` -- run `.venv/bin/{basename}` with environment
 
 ### application entry points
 
-* bin/run-main -- run src/python/app/main/main.py
+* bin/app-main -- run src/python/app/main/main.py
 
 ## examples
 

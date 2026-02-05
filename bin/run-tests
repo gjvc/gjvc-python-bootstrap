@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-[[ -t 1 ]] && stty sane
+[[ -t 0 ]] && [[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -16,11 +16,5 @@ readonly _root=$( dirname "${_dirname}" )
 
 # execute -------------------------------------------------------------------------------------------
 
-argv=(
-    env --ignore-environment
-        HOME=${HOME:-~}
-    "${_root}/bin/venv-python3"
-        "${_root}/src/python/app/main/main.py"
-        "${@}"
-)
-"${argv[@]}"
+JURIGGED=0 "${_root}/bin/venv-bin" pytest "${@}"
+

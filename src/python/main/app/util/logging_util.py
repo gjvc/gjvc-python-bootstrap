@@ -23,7 +23,7 @@ def logging_init( logging_level='INFO' ):
 
 def log_banner( title: str, width: int = 99, output=log.info, character='-' ):
     line = width * character
-    for o in [ '', '', line, title, line, '' ]:
+    for o in [ '', '', line, f'>>> {title}', line, '' ]:
         output( o )
 
 

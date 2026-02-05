@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-[[ -t 1 ]] && stty sane
+[[ -t 0 ]] && [[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -23,8 +23,9 @@ argv=(
         PYTHONDONTWRITEBYTECODE="1"
         PYTHONHASHSEED="0"
         PYTHONNOUSERSITE="1"
-        PYTHONPATH="${_root}/src/python"
+        PYTHONPATH="${_root}/src/python/main"
     "${_root}/.venv/bin/${1}"
 )
 argv+=( "${@:2}" )
 "${argv[@]}"
+
