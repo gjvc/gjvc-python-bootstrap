@@ -1,0 +1,15 @@
+#! /bin/bash
+
+banner() {
+    printf -v line -- '-%0.s' $( seq 1 $(( ${COLUMNS:-80} - 2 )) )
+    printf -- "\n\n%s\n" "${line}"
+    printf ">>> %s\n" "${@}"
+    printf -- "%s\n\n" "${line}"
+}
+
+heading() {
+    title="${1}"
+    printf -v padding -- '-%0.s' $( seq 1 $(( ${COLUMNS:-80} - 3 - ${#title} )) )
+    printf -- "\n%s %s\n\n" "${title}" "${padding}"
+}
+

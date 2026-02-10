@@ -1,0 +1,17 @@
+#! /bin/bash
+
+
+# settings ------------------------------------------------------------------------------------------
+
+version="3.13"
+python3=$( command -v "python${version}" )
+
+
+# pip -----------------------------------------------------------------------------------------------
+
+pip_requirement_d="${_root}/etc/pip-requirement.d/${version}"
+bootstrap="${pip_requirement_d}/bootstrap"
+roots="${pip_requirement_d}/roots"
+versions="${pip_requirement_d}/versions"
+pylock_toml="${pip_requirement_d}/pylock.toml"
+

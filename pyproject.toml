@@ -9,7 +9,7 @@ venv = '.venv'
 
 [tool.pytest]
 cache_dir = '.pytest/cache'
-pythonpath = [ 'src/python/ain' ]
+pythonpath = [ 'src/python/main' ]
 testpaths = [ 'src/python/test' ]
 
 

@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-[[ -t 0 ]] && [[ -t 1 ]] && stty sane
+[[ -t 0 ]] || [[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -16,35 +16,17 @@ readonly _root=$( dirname "${_dirname}" )
 
 # functions -----------------------------------------------------------------------------------------
 
-banner() {
-    printf -v line -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 2 )) )
-    printf -- "\n\n%s\n" "${line}"
-    printf ">>> %s\n" "${@}"
-    printf -- "%s\n\n" "${line}"
-}
-
-heading() {
-    title="${1}"
-    printf -v padding -- '-%0.s' $( seq 1 $(( ${COLUMNS:-99} - 3 - ${#title} )) )
-    printf -- "\n%s %s\n\n" "${title}" "${padding}"
-}
-
-
-# settings ------------------------------------------------------------------------------------------
-
-venv="${_root}/.venv"
-src="${_root}/src"
-lib="${_root}/lib"
-dot_pip="${_root}/.pip"
-dot_pytest="${_root}/.pytest"
-dot_venv="${_root}/.venv"
+source ${_dirname}/functions
 
 
 # clean ---------------------------------------------------------------------------------------------
 
-banner "cleaning .pyc files"
-find ${venv}/ ${src}/ ${lib}/ -name '*.pyc' -ls -delete
+banner "removing .pyc files"
+find ${_root}/{.venv,src,lib} -name '*.pyc' -ls -delete
+
+banner "removing __pycache__ directories"
+find ${_root}/{.venv,src,lib} -name __pycache__ | xargs --no-run-if-empty rm -rf
 
 banner "removing .pip, .pytest, and .venv"
-rm -rf ${dot_pip} ${dot_pytest} ${dot_venv}
+rm -rf ${_root}/{.pip,.pytest,.venv}
 

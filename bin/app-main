@@ -3,7 +3,7 @@
 # bash ----------------------------------------------------------------------------------------------
 
 set -o errexit -o nounset -o pipefail
-[[ -t 0 ]] && [[ -t 1 ]] && stty sane
+[[ -t 0 ]] || [[ -t 1 ]] && stty sane
 
 
 # location ------------------------------------------------------------------------------------------
@@ -18,7 +18,9 @@ readonly _root=$( dirname "${_dirname}" )
 
 argv=(
     env --ignore-environment
+        COLUMNS=${COLUMNS:-80}
         HOME=${HOME:-~}
+        ROWS=${ROWS:-24}
     "${_root}/bin/venv-python3"
         "${_root}/src/python/main/app/main/main.py"
         "${@}"

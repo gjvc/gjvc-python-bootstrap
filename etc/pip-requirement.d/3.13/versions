@@ -1,6 +1,6 @@
 jurigged==0.6.1
-  blessed==1.29.0
-    wcwidth==0.5.3
+  blessed==1.30.0
+    wcwidth==0.6.0
   codefind==0.1.7
   ovld==0.5.14
   watchdog==6.0.0

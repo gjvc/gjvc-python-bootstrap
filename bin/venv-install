@@ -1,0 +1,49 @@
+#! /bin/bash
+
+# bash ----------------------------------------------------------------------------------------------
+
+set -o errexit -o nounset -o pipefail
+[[ -t 0 ]] || [[ -t 1 ]] && stty sane
+
+
+# location ------------------------------------------------------------------------------------------
+
+readonly _this=$( realpath "${BASH_SOURCE[0]}" )
+readonly _basename=$( basename "${_this}" )
+readonly _dirname=$( dirname "${_this}" )
+readonly _root=$( dirname "${_dirname}" )
+
+
+# functions + settings ------------------------------------------------------------------------------
+
+source ${_dirname}/functions
+source ${_dirname}/settings
+
+
+# venv ----------------------------------------------------------------------------------------------
+
+if [[ ! -d ${_root}/.venv/ ]]; then
+    banner "creating venv ${_root}/.venv"
+    "${python3}" -m venv "${_root}/.venv"
+    JURIGGED=0 "${_root}/bin/venv-python3" --version
+    banner "installing from ${bootstrap}"
+    "${_root}/bin/venv-pip3" install --requirement "${bootstrap}"
+fi
+
+
+if [[ -n "${1:-}" ]]; then
+    requirement="${1}"
+else
+    if [[ -s "${roots}" ]] && [[ -s "${versions}" ]] && [[ "${roots}" -nt "${versions}" ]]; then
+        requirement="${roots}"
+    elif [[ -s "${versions}" ]]; then
+        requirement="${versions}"
+    elif [[ -s "${roots}" ]]; then
+        requirement="${roots}"
+    else
+        requirement="${bootstrap}"
+    fi
+fi
+
+banner "installing from ${requirement}"
+"${_root}/bin/venv-pip3" install --requirement "${requirement}"

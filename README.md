@@ -5,9 +5,10 @@
 ## synopsis
 
 This is a template Python 3.x project, to be used for starting a new project
-from scratch.  This is not intended to be a project framework on which to build
-and run the next twitter, but it is intended to be a project framework with
-which you can get a project going quickly.
+from scratch.  This is not intended to be a foundation on which to build and
+run your next million dollar project, but it is hopefully what you need when
+you want to get an idea working quickly and don't want to waste time and energy
+on setting up the dull stuff.
 
 
 ## purpose / audience
@@ -26,20 +27,60 @@ clean, and refer to the location of `pyproject.toml` by environment variable,
 but until that time, we will have to make do with this approach.
 
 
-## structure
+
+## workflow
+
+* clone the repository
+```bash
+git clone some/where/repository.git
+```
+
+* install the basics
+```bash
+bin/dev-setup
+```
+
+* check it works!
+```bash
+bin/app-main --help
+```
+
+* examine the root requirement file:
+```bash
+$ cat etc/pip-requirement.d/3.13/roots 
+jurigged==0.6.1
+pipdeptree==2.30.0
+pyright==1.1.408
+pytest==9.0.2
+```
+
+* add a top-level ("root") requirement
+```bash
+echo pyyaml >> etc/pip-requirement.d/3.13/roots
+```
+
+* update
+```bash
+bin/dev-init
+```
 
 
 ## files
 
 files in `bin/`
 
-| name             | category | remarks                                                       |
-|------------------|----------|---------------------------------------------------------------|
-| `.settings`      |          | contains `python_version`; unlikely to grow                   |
-| `bin/dev-setup`  |          | create .venv/ and install packages from                       |
-| `bin/dev-update` |          | run bin/dev-setup and install latest versions of all packages |
-| `bin/venv-pip3`  |          | run `.venv/bin/pip3` via `bin/venv-run`                       |
-| `bin/venv-run`   |          | run files from `.venv/bin/`                                   |
+| name               | remarks                                                       |
+|--------------------|---------------------------------------------------------------|
+| `.settings`        | contains `python_version`; unlikely to grow                   |
+| `.env`             | contains environment variables; unlikely to grow              |
+| `bin/app-main`     | run `src/python/main/app/main/main.py` via `bin/venv-python3` |
+| `bin/dev-setup`    | create .venv/ and install packages from                       |
+| `bin/dev-update`   | run bin/dev-setup and install latest versions of all packages |
+| `bin/venv-pip3`    | run `.venv/bin/pip3` via `bin/venv-run`                       |
+| `bin/venv-python3` | run `.venv/bin/python3` via `bin/venv-run`                    |
+| `bin/venv-run`     | run files from `.venv/bin/`                                   |
+
+bin/venv-pip3 and bin/venv-python3 pass custom arguments to their executables
 
 files in `etc/pip-requirement.d/`
 
@@ -84,7 +125,7 @@ bin/venv-pip3 install mypy
 update the contents of etc/pip/requirement/{version}/version
 
 ```bash
-bin/dev-update
+bin/dev-init
 ```
 
 ---

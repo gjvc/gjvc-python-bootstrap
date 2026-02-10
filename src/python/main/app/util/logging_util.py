@@ -5,7 +5,11 @@ src/python/app/util/logging_util.py
 import logging
 import time
 
+from app.main.constant import *
+
 log = logging.getLogger( __name__ )
+
+log_message_width = COLUMNS - ( 23 + 1 + 1 + 1 + 16 + 1 + 1 + 3 + 1 )  # 48
 
 
 def logging_init( logging_level='INFO' ):
@@ -21,13 +25,16 @@ def logging_init( logging_level='INFO' ):
     logging.getLogger().setLevel( logging_level )
 
 
-def log_banner( title: str, width: int = 99, output=log.info, character='-' ):
-    line = width * character
+def log_banner( title: str, columns: int = COLUMNS, output=log.info, character='-' ):
+    if output in { log.debug, log.info, log.warning }: columns = log_message_width
+    line = int( columns ) * character
     for o in [ '', '', line, f'>>> {title}', line, '' ]:
         output( o )
 
 
-def log_heading( title: str, width: int = 99, output=log.info, character='-' ):
-    line = str.ljust( f'{title} ', width, character )
+def log_heading( title: str, columns: int = COLUMNS, output=log.info, character='-' ):
+    if output in { log.debug, log.info, log.warning }: columns = log_message_width
+    line = str.ljust( f'{title} ', columns, character )
     for o in [ '', '', line, '' ]:
         output( o )
+
