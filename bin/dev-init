@@ -20,44 +20,14 @@ source ${_dirname}/functions
 source ${_dirname}/settings
 
 
-# venv ----------------------------------------------------------------------------------------------
+# clean install from roots --------------------------------------------------------------------------
 
-if [[ ! -d ${_root}/.venv/ ]]; then
-    banner "creating venv ${_root}/.venv"
-    "${python3}" -m venv "${_root}/.venv"
-    JURIGGED=0 "${_root}/bin/venv-python3" --version
-    banner "installing from ${bootstrap}"
-    "${_root}/bin/venv-pip3" install --requirement "${bootstrap}"
-fi
-
-if [[ -s "${roots}" ]] && [[ -s "${versions}" ]] && [[ "${roots}" -nt "${versions}" ]]; then
-    requirement="${roots}"
-elif [[ -s "${versions}" ]]; then
-    requirement="${versions}"
-elif [[ -s "${roots}" ]]; then
-    requirement="${roots}"
-else
-    requirement="${bootstrap}"
-fi
-banner "installing from ${requirement}"
-"${_root}/bin/venv-pip3" install --requirement "${requirement}"
-
-
-# freeze --------------------------------------------------------------------------------------------
-
-"${_root}/bin/venv-freeze"
+banner "recreating venv ${venv_dir}"
+rm -rf "${venv_dir}"
+"${python3}" -m venv "${venv_dir}"
+"${_root}/bin/venv-pip3" install --requirement "${roots}"
 "${_root}/bin/venv-freeze"
 
-
-# install -------------------------------------------------------------------------------------------
-
-banner "re-installing from ${roots}"
-"${_root}/bin/venv-bin" pip3 install --requirement "${roots}"
-
-
-# freeze --------------------------------------------------------------------------------------------
-
-"${_root}/bin/venv-freeze"
 
 # changes -------------------------------------------------------------------------------------------
 

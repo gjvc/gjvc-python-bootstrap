@@ -32,7 +32,7 @@ def dump_packages():
 
 def dump_sysconfig():
     width = max( [ len( s ) for s in sysconfig.get_config_vars() ] ) + 2
-    log_heading( 'packages' )
+    log_heading( 'sysconfig' )
     for name in sorted( sysconfig.get_config_vars() ):
         value = sysconfig.get_config_vars().get( name )
         log.info( f'{name:{width}}{value}' )

@@ -6,5 +6,6 @@
 .pip/
 .venv/
 
+.*.sw?
 *.pyc
 

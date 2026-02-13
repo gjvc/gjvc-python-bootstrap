@@ -4,6 +4,11 @@ jurigged==0.6.1
   codefind==0.1.7
   ovld==0.5.14
   watchdog==6.0.0
+pg8000==1.31.5
+  python-dateutil==2.9.0.post0
+    six==1.17.0
+  scramp==1.4.8
+    asn1crypto==1.5.1
 pipdeptree==2.30.0
   packaging==26.0
   pip==26.0.1

@@ -1,16 +1,17 @@
-### overview
+### CONTENTS
 
 ---
 
 
-● Here's an overview of the project's tooling:
+### objective / summary
+
 
 ### `bin/`
 
-A layered set of shell scripts for managing a Python 3.13 venv-based project. They all share a common preamble (`set -o
-errexit -o nounset -o pipefail`, resolve _`root` from script location).
+A layered set of shell scripts for managing a Python 3.13 venv-based project.
+They all share a common preamble (`set -o errexit -o nounset -o pipefail`,
+resolve `_root` from script location).
 
-Shared infrastructure
 
 - settings -- Defines the Python version (3.13), resolves the python3 binary, and sets paths to files under
   `etc/pip-requirement.d/3.13/` (packages, packages.root, packages.deps, pylock_toml).
@@ -51,14 +52,16 @@ Four files maintained by `dev-init` in `etc/pip-requirement.d/3.13/`
 | `packages.deps`      | yes        | full dependency tree with pinned versions, indented to show the hierarchy       |
 | `pylock.toml`        | yes        | PEP 751-format lock file with wheel URLs and SHA-256 hashes for all packages.   |
 
-The flow is: bootstrap (human-curated) -> `dev-init` resolves and installs -> writes roots, versions, and pylock.toml (
+The flow is: packages.bootstrap (human-curated) -> `dev-init` resolves and installs -> writes roots, versions, and pylock.toml (
 all machine-generated). The roots vs. versions freshness comparison drives whether `dev-init` installs from the full
 tree or just top-level roots on subsequent runs.
 
+
 ### `packages.bootstrap`
 
-* `pipdeptree`
-* `jurigged`
-* `pyright`
-* `pytest`
-* `pyyaml`
+* `pipdeptree` -- displays installed python packages in form of a dependency tree
+* `jurigged` -- hot-reload
+* `pyright` -- static type checker
+* `pytest` -- de-facto testing framework
+* `pyyaml` -- yaml format
+

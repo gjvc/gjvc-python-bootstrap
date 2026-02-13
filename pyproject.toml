@@ -1,13 +1,17 @@
 # pyproject.toml
 
 
+# pyright -------------------------------------------------------------------------------------------
+
 [tool.pyright]
 extraPaths = [ 'src/python/main', 'src/python/test' ]
 venvPath = '.'
 venv = '.venv'
 
 
-[tool.pytest]
+# pytest --------------------------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
 cache_dir = '.pytest/cache'
 pythonpath = [ 'src/python/main' ]
 testpaths = [ 'src/python/test' ]

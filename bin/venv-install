@@ -22,28 +22,32 @@ source ${_dirname}/settings
 
 # venv ----------------------------------------------------------------------------------------------
 
-if [[ ! -d ${_root}/.venv/ ]]; then
-    banner "creating venv ${_root}/.venv"
-    "${python3}" -m venv "${_root}/.venv"
-    JURIGGED=0 "${_root}/bin/venv-python3" --version
-    banner "installing from ${bootstrap}"
-    "${_root}/bin/venv-pip3" install --requirement "${bootstrap}"
-fi
-
-
-if [[ -n "${1:-}" ]]; then
-    requirement="${1}"
-else
-    if [[ -s "${roots}" ]] && [[ -s "${versions}" ]] && [[ "${roots}" -nt "${versions}" ]]; then
-        requirement="${roots}"
-    elif [[ -s "${versions}" ]]; then
-        requirement="${versions}"
-    elif [[ -s "${roots}" ]]; then
+if [[ ! -d ${venv_dir} ]]; then
+    banner "creating venv ${venv_dir}"
+    "${python3}" -m venv "${venv_dir}"
+    python3=$( realpath "${venv_dir}/bin/python3" )
+    printf '%s from %s\n' "${venv_dir}" "${python3}"
+    if [[ -s "${roots}" ]]; then
         requirement="${roots}"
     else
         requirement="${bootstrap}"
+    fi
+else
+    if [[ -n "${1:-}" ]]; then
+        requirement="${1}"
+    else
+        if [[ -s "${roots}" ]] && [[ -s "${versions}" ]] && [[ "${roots}" -nt "${versions}" ]]; then
+            requirement="${roots}"
+        elif [[ -s "${versions}" ]]; then
+            requirement="${versions}"
+        elif [[ -s "${roots}" ]]; then
+            requirement="${roots}"
+        else
+            requirement="${bootstrap}"
+        fi
     fi
 fi
 
 banner "installing from ${requirement}"
 "${_root}/bin/venv-pip3" install --requirement "${requirement}"
+

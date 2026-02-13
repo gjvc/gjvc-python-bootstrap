@@ -22,14 +22,14 @@ source ${_dirname}/settings
 
 # freeze --------------------------------------------------------------------------------------------
 
-banner "freezing to ${pylock_toml}"
-"${_root}/bin/venv-bin" pip3 lock --requirement "${versions}" --output "${pylock_toml}"
-
-banner "writing current roots and versions"
+banner "freezing to roots ${roots}" "and versions ${versions}"
 "${_root}/bin/venv-bin" pipdeptree --freeze |
     tee "${versions}" |
     awk '/^[^ ]/ { print $1 }' > "${roots}"
 
-heading "git diff ${pip_requirement_d} (current roots and versions)"
+banner "freezing to ${pylock_toml}"
+"${_root}/bin/venv-bin" pip3 lock --requirement "${versions}" --output "${pylock_toml}"
+
+banner "git diff ${pip_requirement_d}"
 git --no-pager diff "${pip_requirement_d}" || true
 

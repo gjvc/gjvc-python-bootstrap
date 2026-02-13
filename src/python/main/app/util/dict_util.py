@@ -13,5 +13,5 @@ def dump_dict( heading: str, d: dict ):
     log_heading( heading )
     width = max( [ len( s ) for s in d.keys() ] ) + 2
     for name, value in d.items():
-        value = d.get( name )
         log.info( f'{name:{width}}{value}' )
+
