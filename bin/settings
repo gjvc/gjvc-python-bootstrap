@@ -14,9 +14,9 @@ venv_dir="${_root}/.venv"
 
 # pip -----------------------------------------------------------------------------------------------
 
-pip_requirement_d="${_root}/etc/pip-requirement.d/${version}"
+pip_requirement_d="${_root}/etc/pip/requirement.d/${version}"
 bootstrap="${pip_requirement_d}/bootstrap"
-roots="${pip_requirement_d}/roots"
+root="${pip_requirement_d}/root"
 versions="${pip_requirement_d}/versions"
 pylock_toml="${pip_requirement_d}/pylock.toml"
 

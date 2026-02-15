@@ -22,10 +22,10 @@ source ${_dirname}/settings
 
 # freeze --------------------------------------------------------------------------------------------
 
-banner "freezing to roots ${roots}" "and versions ${versions}"
+banner "freezing to root ${root}" "and versions ${versions}"
 "${_root}/bin/venv-bin" pipdeptree --freeze |
     tee "${versions}" |
-    awk '/^[^ ]/ { print $1 }' > "${roots}"
+    awk '/^[^ ]/ { print $1 }' > "${root}"
 
 banner "freezing to ${pylock_toml}"
 "${_root}/bin/venv-bin" pip3 lock --requirement "${versions}" --output "${pylock_toml}"

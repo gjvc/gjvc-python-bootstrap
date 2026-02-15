@@ -20,12 +20,12 @@ source ${_dirname}/functions
 source ${_dirname}/settings
 
 
-# clean install from roots --------------------------------------------------------------------------
+# clean install from root --------------------------------------------------------------------------
 
 banner "recreating venv ${venv_dir}"
 rm -rf "${venv_dir}"
 "${python3}" -m venv "${venv_dir}"
-"${_root}/bin/venv-pip3" install --requirement "${roots}"
+"${_root}/bin/venv-pip3" install --requirement "${root}"
 "${_root}/bin/venv-freeze"
 
 
