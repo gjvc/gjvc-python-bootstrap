@@ -27,6 +27,6 @@ find ${_root}/{.venv,src,lib} -name '*.pyc' -ls -delete
 banner "removing __pycache__ directories"
 find ${_root}/{.venv,src,lib} -name __pycache__ | xargs --no-run-if-empty rm -rf
 
-banner "removing .pip, .pytest, and .venv"
-rm -rf ${_root}/{.pip,.pytest,.venv}
+#banner "removing .pip, .pytest, and .venv"
+#rm -rf ${_root}/{.pip,.pytest,.venv}
 

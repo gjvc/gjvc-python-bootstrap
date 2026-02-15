@@ -14,4 +14,3 @@ def dump_dict( heading: str, d: dict ):
     width = max( [ len( s ) for s in d.keys() ] ) + 2
     for name, value in d.items():
         log.info( f'{name:{width}}{value}' )
-

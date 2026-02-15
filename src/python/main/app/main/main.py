@@ -3,18 +3,28 @@ src/python/app/main/main.py
 """
 
 import argparse
+import datetime
+import grp
 import logging
 import os
+import pwd
 
-from app.main.dump import dump_rlimits, dump_sysconfig, dump_packages
-from app.util.logging_util import logging_init, log_banner, log_heading
+from app.main.dump import dump_rlimit, dump_sysconfig, dump_packages
+from app.shell.shell import run_shell
 from app.util.dict_util import dump_dict
+from app.util.logging_util import logging_init, log_banner, log_heading
 
 log = logging.getLogger( __name__ )
 
 
 def announce( args: argparse.Namespace ):
-    log_banner( 'app' )
+    now = datetime.datetime.now().isoformat()
+    PID = os.getpid()
+    UID = os.getuid()
+    GID = os.getgid()
+    USER = pwd.getpwuid( UID ).pw_name
+    GROUP = grp.getgrgid( GID ).gr_name
+    log_banner( f'app starting at {now}, PID {PID}, UID {UID} ({USER}), GID {GID} ({GROUP})' )
 
 
 def dispatch( args: argparse.Namespace ):
@@ -23,11 +33,15 @@ def dispatch( args: argparse.Namespace ):
     if args.environment:
         dump_dict( 'environment', os.environ.copy() )
     if args.resource:
-        dump_rlimits()
+        dump_rlimit()
     if args.sysconfig:
         dump_sysconfig()
     if args.packages:
         dump_packages()
+
+    if not any( { args.args, args.environment, args.resource, args.sysconfig, args.packages } ):
+        run_shell( args )
+
 
 def parse_args() -> argparse.Namespace:
     logging_level_choices = { 'INFO', 'DEBUG', 'ERROR', 'TRACE', 'FATAL', 'WARNING' }

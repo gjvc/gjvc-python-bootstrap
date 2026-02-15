@@ -1,3 +1,14 @@
+cmd2==3.2.0
+  pyperclip==1.11.0
+  rich==14.3.2
+    markdown-it-py==4.0.0
+      mdurl==0.1.2
+    Pygments==2.19.2
+  rich-argparse==1.7.2
+    rich==14.3.2
+      markdown-it-py==4.0.0
+        mdurl==0.1.2
+      Pygments==2.19.2
 jurigged==0.6.1
   blessed==1.30.0
     wcwidth==0.6.0
@@ -12,6 +23,7 @@ pg8000==1.31.5
 pipdeptree==2.30.0
   packaging==26.0
   pip==26.0.1
+psutil==7.2.2
 pyright==1.1.408
   nodeenv==1.10.0
   typing_extensions==4.15.0

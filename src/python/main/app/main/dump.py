@@ -9,12 +9,11 @@ import sysconfig
 
 from app.util.logging_util import log_heading
 
-
 log = logging.getLogger( __name__ )
 
 
 def dump_packages():
-    installed_packages = [ d.metadata['Name'] for d in importlib.metadata.distributions() ]
+    installed_packages = [ d.metadata[ 'Name' ] for d in importlib.metadata.distributions() ]
 
     def get_package_version( name: str ):
         try:
@@ -38,7 +37,7 @@ def dump_sysconfig():
         log.info( f'{name:{width}}{value}' )
 
 
-def dump_rlimits():
+def dump_rlimit():
     names = [ s for s in dir( resource ) if s.startswith( 'RLIMIT_' ) ]
     width = max( [ len( s ) for s in names ] )
     log_heading( 'rlimit' )
@@ -47,4 +46,3 @@ def dump_rlimits():
         if soft == -1: soft = 'unlimited'
         if hard == -1: hard = 'unlimited'
         log.info( f'{name:{width}}  {soft:>12}  {hard:>12}' )
-

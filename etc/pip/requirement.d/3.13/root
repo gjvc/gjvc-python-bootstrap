@@ -1,6 +1,8 @@
+cmd2==3.2.0
 jurigged==0.6.1
 pg8000==1.31.5
 pipdeptree==2.30.0
+psutil==7.2.2
 pyright==1.1.408
 pytest==9.0.2
 PyYAML==6.0.3

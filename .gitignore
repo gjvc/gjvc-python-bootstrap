@@ -6,6 +6,8 @@
 .pip/
 .venv/
 
+tags
+
 .*.sw?
 *.pyc
 
