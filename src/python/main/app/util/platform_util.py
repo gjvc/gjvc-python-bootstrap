@@ -1,5 +1,5 @@
 """
-src/python/app/util/string_util.py
+src/python/main/app/util/platform_util.py
 """
 
 import logging

@@ -3,20 +3,20 @@
 
 # settings ------------------------------------------------------------------------------------------
 
-version="3.13"
-python3=$( command -v "python${version}" )
+readonly python3_version="3.13"
+readonly python3=$( command -v "python${python3_version}" )
 
 
 # venv ----------------------------------------------------------------------------------------------
 
-venv_dir="${_root}/.venv"
+readonly venv_dir="${_root}/.venv"
 
 
 # pip -----------------------------------------------------------------------------------------------
 
-pip_requirement_d="${_root}/etc/pip/requirement.d/${version}"
-bootstrap="${pip_requirement_d}/bootstrap"
-root="${pip_requirement_d}/root"
-versions="${pip_requirement_d}/versions"
-pylock_toml="${pip_requirement_d}/pylock.toml"
+readonly pip_requirement_d="${_root}/etc/pip/${python3_version}"
+readonly bootstrap="${pip_requirement_d}/bootstrap"
+readonly root="${pip_requirement_d}/root"
+readonly deptree="${pip_requirement_d}/deptree"
+readonly pylock_toml="${pip_requirement_d}/pylock.toml"
 

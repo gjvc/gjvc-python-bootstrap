@@ -1,0 +1,12 @@
+"""
+src/python/main/app/main/version.py
+"""
+
+VERSION_FULL = 'VERSION_FULL'
+VERSION_MAJOR = 'VERSION_MAJOR'
+VERSION_MINOR = 'VERSION_MINOR'
+VERSION_RELEASE_DATE = 'VERSION_RELEASE_DATE'
+
+
+def version() -> str:
+    return VERSION_FULL

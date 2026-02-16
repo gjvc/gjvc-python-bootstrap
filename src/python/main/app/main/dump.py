@@ -41,6 +41,7 @@ def dump_rlimit():
     names = [ s for s in dir( resource ) if s.startswith( 'RLIMIT_' ) ]
     width = max( [ len( s ) for s in names ] )
     log_heading( 'rlimit' )
+    log.info( f'{"NAME":{width}}  {"SOFT":>12}  {"HARD":>12}' )
     for name in sorted( names ):
         soft, hard = resource.getrlimit( getattr( resource, name ) )
         if soft == -1: soft = 'unlimited'

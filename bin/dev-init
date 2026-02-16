@@ -6,7 +6,7 @@ set -o errexit -o nounset -o pipefail
 [[ -t 0 ]] || [[ -t 1 ]] && stty sane
 
 
-# location ------------------------------------------------------------------------------------------
+# canonical path resolution -------------------------------------------------------------------------
 
 readonly _this=$( realpath "${BASH_SOURCE[0]}" )
 readonly _basename=$( basename "${_this}" )
@@ -16,21 +16,17 @@ readonly _root=$( dirname "${_dirname}" )
 
 # functions + settings ------------------------------------------------------------------------------
 
-source ${_dirname}/functions
-source ${_dirname}/settings
+source "${_dirname}/functions"
+source "${_dirname}/settings"
 
 
 # clean install from root --------------------------------------------------------------------------
 
-banner "recreating venv ${venv_dir}"
-rm -rf "${venv_dir}"
-"${python3}" -m venv "${venv_dir}"
-"${_root}/bin/venv-pip3" install --requirement "${root}"
-"${_root}/bin/venv-freeze"
+banner "(re)creating venv ${venv_dir}"
+"${_root}/bin/venv-install"
 
 
 # changes -------------------------------------------------------------------------------------------
 
 heading "git diff ${pip_requirement_d}"
 git --no-pager diff "${pip_requirement_d}" || true
-

@@ -1,0 +1,70 @@
+
+
+● Here's a summary of the project and its bin/ scripts:
+
+Project: gjvc-python-bootstrap
+
+A Python 3.13 project template designed to quickly bootstrap new ideas. Per the README: "Intended to benefit the first 10 hours and days, not the first 10 months or years."
+
+---
+bin/ Scripts
+
+Scripts follow a clear naming convention: app-* (entry points), dev-* (lifecycle), venv-* (plumbing).
+
+Shared Infrastructure
+
+┌───────────┬──────────────────────────────────────────────────────────────────────────────┐
+│  Script   │                                   Purpose                                    │
+├───────────┼──────────────────────────────────────────────────────────────────────────────┤
+│ settings  │ Readonly config vars: python version, venv path, pip requirement file paths  │
+├───────────┼──────────────────────────────────────────────────────────────────────────────┤
+│ functions │ Display helpers: banner() (full-width separator) and heading() (titled rule) │
+└───────────┴──────────────────────────────────────────────────────────────────────────────┘
+
+Application Entry Points
+
+┌───────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│  Script   │                                                         Purpose                                                          │
+├───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ app-main  │ Runs the Python app via venv-python3 in a clean environment (env --ignore-environment), passing only COLUMNS, HOME, ROWS │
+├───────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ app-tests │ Runs pytest via venv-bin with JURIGGED=0 (hot-reload disabled for tests)                                                 │
+└───────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Developer Lifecycle
+
+┌───────────┬───────────────────────────────────────────────────────────────────────────────────┐
+│  Script   │                                      Purpose                                      │
+├───────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ dev-init  │ Orchestrates full venv setup: calls venv-install then venv-freeze, shows git diff │
+├───────────┼───────────────────────────────────────────────────────────────────────────────────┤
+│ dev-clean │ Removes *.pyc files and __pycache__/ dirs from .venv/, src/, lib/                 │
+└───────────┴───────────────────────────────────────────────────────────────────────────────────┘
+
+Venv Plumbing
+
+┌──────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│    Script    │                                                                              Purpose                                                                              │
+├──────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ venv-bin     │ Core executor — runs any .venv/bin/ binary with controlled env vars (PYTHONDONTWRITEBYTECODE=1, PYTHONHASHSEED=0, PYTHONNOUSERSITE=1, PYTHONPATH=src/python/main) │
+├──────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ venv-python3 │ Wraps venv-bin python3, adds jurigged hot-reloading by default (JURIGGED=1)                                                                                       │
+├──────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ venv-pip3    │ Wraps venv-bin pip3 with project-local cache at .pip/cache                                                                                                        │
+├──────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ venv-install │ Creates venv if missing; selects best requirement file (root > deptree > bootstrap) and installs, then freezes                                                    │
+├──────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+│ venv-freeze  │ Generates deptree (via pipdeptree --freeze), extracts root, creates pylock.toml (PEP 751 lock)                                                                    │
+└──────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+---
+Notable Patterns
+
+- Canonical path resolution — every script uses the same 4-line realpath/BASH_SOURCE[0] idiom for location-independence
+- Strict bash — set -o errexit -o nounset -o pipefail everywhere
+- Environment hygiene — app-main starts from a blank env; venv-bin blocks user site-packages
+- Three-tier requirements — bootstrap (minimal) → root (pinned) → deptree (full tree) → pylock.toml (hash-locked)
+- CLI/Shell symmetry — the interactive cmd2 shell commands mirror the --flags on the CLI
+
+Is there anything specific you'd like to discuss or change about these scripts?
+

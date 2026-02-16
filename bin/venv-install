@@ -6,7 +6,7 @@ set -o errexit -o nounset -o pipefail
 [[ -t 0 ]] || [[ -t 1 ]] && stty sane
 
 
-# location ------------------------------------------------------------------------------------------
+# canonical path resolution -------------------------------------------------------------------------
 
 readonly _this=$( realpath "${BASH_SOURCE[0]}" )
 readonly _basename=$( basename "${_this}" )
@@ -16,8 +16,8 @@ readonly _root=$( dirname "${_dirname}" )
 
 # functions + settings ------------------------------------------------------------------------------
 
-source ${_dirname}/functions
-source ${_dirname}/settings
+source "${_dirname}/functions"
+source "${_dirname}/settings"
 
 
 # venv ----------------------------------------------------------------------------------------------
@@ -25,29 +25,34 @@ source ${_dirname}/settings
 if [[ ! -d ${venv_dir} ]]; then
     banner "creating venv ${venv_dir}"
     "${python3}" -m venv "${venv_dir}"
-    python3=$( realpath "${venv_dir}/bin/python3" )
     printf '%s from %s\n' "${venv_dir}" "${python3}"
     if [[ -s "${root}" ]]; then
         requirement="${root}"
     else
         requirement="${bootstrap}"
     fi
+fi
+
+if [[ "${1:-}" == "bootstrap" ]]; then
+    requirement="${bootstrap}"
+elif [[ "${1:-}" == "deptree" ]]; then
+    requirement="${deptree}"
+elif [[ "${1:-}" == "root" ]]; then
+    requirement="${root}"
 else
-    if [[ -n "${1:-}" ]]; then
-        requirement="${1}"
+    if [[ -s "${root}" ]] && [[ -s "${deptree}" ]] && [[ "${root}" -nt "${deptree}" ]]; then
+        requirement="${root}"
+    elif [[ -s "${deptree}" ]]; then
+        requirement="${deptree}"
+    elif [[ -s "${root}" ]]; then
+        requirement="${root}"
     else
-        if [[ -s "${root}" ]] && [[ -s "${versions}" ]] && [[ "${root}" -nt "${versions}" ]]; then
-            requirement="${root}"
-        elif [[ -s "${versions}" ]]; then
-            requirement="${versions}"
-        elif [[ -s "${root}" ]]; then
-            requirement="${root}"
-        else
-            requirement="${bootstrap}"
-        fi
+        requirement="${bootstrap}"
     fi
 fi
 
 banner "installing from ${requirement}"
 "${_root}/bin/venv-pip3" install --requirement "${requirement}"
 
+banner "freezing"
+"${_root}/bin/venv-freeze"

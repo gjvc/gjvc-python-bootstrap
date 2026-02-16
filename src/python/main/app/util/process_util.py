@@ -2,14 +2,12 @@
 src/python/main/app/util/process_util.py
 """
 
-import psutil
-import sys
-import os
-
 import logging
+import os
+import sys
 
 log = logging.getLogger( __name__ )
 
 
 def restart_process():
-    os.execlp( sys.executable, sys.executable, *sys.argv )
+    os.execvpe( sys.executable, [ sys.executable ] + sys.argv, os.environ )
