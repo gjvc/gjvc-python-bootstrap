@@ -32,7 +32,7 @@ between commands being issued at the `cmd2` prompt. This reduces the edit/test c
 
 The essential packages required by a basic environment are listed at `etc/pip/3.13/bootstrap`:
 
-<details open>
+<details>
 <summary><code>etc/pip/3.13/bootstrap</code></summary>
 
 ```requirements
