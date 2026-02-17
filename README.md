@@ -32,6 +32,9 @@ between commands being issued at the `cmd2` prompt. This reduces the edit/test c
 
 The essential packages required by a basic environment are listed at `etc/pip/3.13/bootstrap`:
 
+<details open>
+<summary><code>etc/pip/3.13/bootstrap</code></summary>
+
 ```requirements
 jurigged
 pipdeptree
@@ -39,8 +42,12 @@ pyright
 pytest
 pyyaml
 ```
+</details>
 
 The root packages are listed at `etc/pip/3.13/root` in a flat list:
+
+<details>
+<summary><code>etc/pip/3.13/root</code></summary>
 
 ```requirements
 cmd2==3.2.0
@@ -52,9 +59,13 @@ pyright==1.1.408
 pytest==9.0.2
 PyYAML==6.0.3
 ```
+</details>
 
 The complete set of dependencies is listed, in an indented tree, at `etc/pip/3.13/deptree`. This is created by
 `pipdeptree`:
+
+<details>
+<summary><code>etc/pip/3.13/deptree</code></summary>
 
 ```requirements
 click==8.3.1
@@ -94,6 +105,7 @@ pytest==9.0.2
   Pygments==2.19.2
 PyYAML==6.0.3
 ```
+</details>
 
 ### adding a package
 
