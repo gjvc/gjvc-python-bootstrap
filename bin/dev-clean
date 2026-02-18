@@ -22,11 +22,13 @@ source "${_dirname}/functions"
 # clean ---------------------------------------------------------------------------------------------
 
 banner "removing .pyc files"
-find ${_root}/{.venv,src,lib} -name '*.pyc' -ls -delete
+find ${_root}/{.venv,src,lib} -name '*.pyc' -ls -delete 2>/dev/null && true
 
 banner "removing __pycache__ directories"
 find ${_root}/{.venv,src,lib} -name __pycache__ | xargs --no-run-if-empty rm -rf
 
-#banner "removing .pip, .pytest, and .venv"
-#rm -rf ${_root}/{.pip,.pytest,.venv}
+if [[ "${CLEAN_ALL:-}" == "1" ]]; then
+    banner "removing .pip/, .pytest/, .venv/, and tags"
+    rm -rf ${_root}/{.pip/,.pytest/,.venv/,tags}
+fi
 

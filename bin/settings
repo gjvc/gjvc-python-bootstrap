@@ -14,9 +14,9 @@ readonly venv_dir="${_root}/.venv"
 
 # pip -----------------------------------------------------------------------------------------------
 
-readonly pip_requirement_d="${_root}/etc/pip/${python3_version}"
-readonly bootstrap="${pip_requirement_d}/bootstrap"
-readonly root="${pip_requirement_d}/root"
-readonly deptree="${pip_requirement_d}/deptree"
-readonly pylock_toml="${pip_requirement_d}/pylock.toml"
+readonly pip_d="${_root}/etc/pip/${python3_version}"
+readonly bootstrap="${pip_d}/bootstrap"
+readonly root="${pip_d}/root"
+readonly deptree="${pip_d}/deptree"
+readonly pylock_toml="${pip_d}/pylock.toml"
 

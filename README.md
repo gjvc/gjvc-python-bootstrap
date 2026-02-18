@@ -4,14 +4,15 @@
 
 ### synopsis
 
-This is a template Python 3.x (3.13 by default, change it in `bin/settings`) project for getting a new idea working
-quickly without wasting time on environmental setup. The intention is save you time during the first 10 hours and days,
-not the first 10 months or years.
+This is a template Python 3.x (3.13 by default, change it in `bin/settings`) project for getting a
+new idea working quickly without wasting time on environmental setup. The intention is save you
+time during the first 10 hours and days, not the first 10 months or years.
 
 ### assumptions
 
 * You are running on Linux / UNIX.
-* That you are using Python 3.13 from somewhere in your `${PATH}` environemnt variable (set in `bin/settings`)
+* That you are using Python 3.13 from somewhere in your `${PATH}` environemnt variable (set in
+  `bin/settings`)
 
 ### quick start
 
@@ -23,10 +24,11 @@ bin/app-main --help
 
 ### components
 
-`pipdeptree` creates the `deptree` files, allowing for easy understanding of the package dependency hierarchy. It is
-required and must not be removed. `cmd2` and `jurigged` make for a quietly powerful combination when
-creating command-shell driven applications.  `jurigged` automatically reloads `.py` files during execution, in practice
-between commands being issued at the `cmd2` prompt. This reduces the edit/test cycle time.
+`pipdeptree` creates the `deptree` files, allowing for easy understanding of the package dependency
+hierarchy. It is required and must not be removed. `cmd2` and `jurigged` make for a quietly
+powerful combination when creating command-shell driven applications.  `jurigged` automatically
+reloads `.py` files during execution, in practice between commands being issued at the `cmd2`
+prompt. This reduces the edit/test cycle time.
 
 ### managing dependencies
 
@@ -42,6 +44,7 @@ pyright
 pytest
 pyyaml
 ```
+
 </details>
 
 The root packages are listed at `etc/pip/3.13/root` in a flat list:
@@ -59,6 +62,7 @@ pyright==1.1.408
 pytest==9.0.2
 PyYAML==6.0.3
 ```
+
 </details>
 
 The complete set of dependencies is listed, in an indented tree, at `etc/pip/3.13/deptree`. This is created by
@@ -105,6 +109,7 @@ pytest==9.0.2
   Pygments==2.19.2
 PyYAML==6.0.3
 ```
+
 </details>
 
 ### adding a package
@@ -130,18 +135,22 @@ bin/dev-init
 | `bin/app-main`     | application entry point (calls `src/python/main/app/main/main.py`) |
 | `bin/app-tests`    | run the test suite                                                 |
 | `bin/dev-init`     | create / recreate `.venv/` from requirements                       |
-| `bin/dev-clean`    | clean the environment                                              |
-| `bin/venv-python3` | run `.venv/bin/python3` with environment                           |
-| `bin/venv-pip3`    | run `.venv/bin/pip3` with environment                              |
+| `bin/dev-clean`    | clean the workspace [1]                                            |
+| `bin/venv-python3` | set environment and run `.venv/bin/python3`                        |
+| `bin/venv-pip3`    | set environment and run `.venv/bin/pip3`                           |
 | `bin/venv-bin`     | run arbitrary executables from `.venv/bin/`                        |
 | `src/python/main/` | source files for application                                       |
 | `src/python/test/` | source files for tests                                             |
 
-The naming conventions across `bin/` should be clear enough: `app-*` for entry points, `dev-*` for lifecycle, `venv-*`
-for plumbing.
+[1] removes `.pyc` files and `__pycache__` directories by default.  If the environment variable
+`CLEAN_ALL` is set to `1`, the `.pip/`, `.venv/` directories are also removed.
 
-As an example to be followed, `bin/venv-pip3` and `bin/venv-python3` optionally pass additional arguments based on the
-`JURIGGED` environment variable, enforcing uniform execution within the `.venv/` context.
+The naming conventions across `bin/` should be clear enough: `app-*` for entry points, `dev-*` for
+lifecycle, `venv-*` for plumbing.
+
+As an example to be followed, `bin/venv-pip3` and `bin/venv-python3` optionally pass additional
+arguments based on the `JURIGGED` environment variable, enforcing uniform execution within the
+`.venv/` context.
 
 `bin/app-main` has the option to pass additional environment variables as required.
 
@@ -162,12 +171,13 @@ Where possible, configuration lives in `pyproject.toml` to avoid littering the p
 
 ### alternative tooling / approaches
 
-This use of `pip`, `pipdeptree`, and `venv` is the minimal-but-complete set of tools required to manage a Python
-virtual environment. Other tools exist to do this job, and they may well be faster, do more, and may be required,
-depending on the scale of project you are managing. For instance, if you are a package maintainer you may wish to test
-on multiple versions of Python 3, and `poetry` or `uv` will help you do so. On the other hand, if you only have to
-maintain your personal application, and you have locally-installed versions of python on which you can rely, the
-approach presented here may well suit you better without having to learn more expansive tooling.
+This use of `pip`, `pipdeptree`, and `venv` is the minimal-but-complete set of tools required to
+manage a Python virtual environment. Other tools exist to do this job, and they may well be faster,
+do more, and may be required, depending on the scale of project you are managing. For instance, if
+you are a package maintainer you may wish to test on multiple versions of Python 3, and `poetry` or
+`uv` will help you do so. On the other hand, if you only have to maintain your personal
+application, and you have locally-installed versions of python on which you can rely, the approach
+presented here may well suit you better without having to learn more expansive tooling.
 
 | tool     | strengths                                      |
 |----------|------------------------------------------------|
@@ -185,4 +195,5 @@ approach presented here may well suit you better without having to learn more ex
 
 ---
 
-© George Cox, 2020–2026
+&copy; George Cox, 2020–2026
+

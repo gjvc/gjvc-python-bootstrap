@@ -28,5 +28,5 @@ banner "(re)creating venv ${venv_dir}"
 
 # changes -------------------------------------------------------------------------------------------
 
-heading "git diff ${pip_requirement_d}"
-git --no-pager diff "${pip_requirement_d}" || true
+heading "git diff ${pip_d}"
+git --no-pager diff "${pip_d}" || true

@@ -22,14 +22,16 @@ source "${_dirname}/settings"
 
 # freeze --------------------------------------------------------------------------------------------
 
-banner "freezing to root ${root}" "and deptree ${deptree}"
+banner "freezing" "root ${root}" "deptree ${deptree}" "pylock.toml ${pylock_toml}"
 "${_root}/bin/venv-bin" pipdeptree --freeze |
     tee "${deptree}" |
     awk '/^[^ ]/ { print $1 }' > "${root}"
 
-banner "freezing to ${pylock_toml}"
 "${_root}/bin/venv-bin" pip3 lock --requirement "${deptree}" --output "${pylock_toml}"
 
-banner "git diff ${pip_requirement_d}"
-git --no-pager diff "${pip_requirement_d}" || true
+
+# diff ----------------------------------------------------------------------------------------------
+
+banner "git diff ${pip_d}"
+git --no-pager diff "${pip_d}" || true
 
