@@ -11,7 +11,7 @@ time during the first 10 hours and days, not the first 10 months or years.
 ### assumptions
 
 * You are running on Linux / UNIX.
-* That you are using Python 3.13 from somewhere in your `${PATH}` environemnt variable (set in
+* That you are using Python 3.13 from somewhere in your `${PATH}` environment variable (set in
   `bin/settings`)
 
 ### quick start
